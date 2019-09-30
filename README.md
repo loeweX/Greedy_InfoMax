@@ -29,17 +29,17 @@ What we found exciting is that despite each module being trained greedily, it im
 ### Dependencies
 
 - [Python and Conda](https://www.anaconda.com/)
-- Create conda environment `infomax` by running:
+- Setup the conda environment `infomax` by running:
 
     ```bash
-    conda env create -f environment.yml 
+    bash setup_dependencies.sh
     ```
 
 - Install [torchaudio](https://github.com/pytorch/audio) in the `infomax` environment
-- Download datasets into `./datasets/`
-    * [Librispeech train-clean-100](http://www.openslr.org/12)
-    * [LibriSpeech100_labels_split folder provided by Oord et al.](https://drive.google.com/drive/folders/1BhJ2umKH3whguxMwifaKtSra0TgAbtfb)
-
+- Download datasets 
+    ```bash 
+    bash download_data.sh
+    ```
 
 ### Usage
 
