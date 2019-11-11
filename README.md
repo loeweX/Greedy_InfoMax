@@ -4,7 +4,7 @@ We're going Dutch and explore greedy self-supervised training using the InfoMax 
 
 This repo provides the code for the audio experiments in our paper:
 
-Sindy Löwe*, Peter O'Connor, Bastiaan S. Veeling* - [Greedy InfoMax for Biologically Plausible Self-Supervised Representation Learning](https://arxiv.org/abs/1905.11786)
+Sindy Löwe*, Peter O'Connor, Bastiaan S. Veeling* - [Putting An End to End-to-End: Gradient-Isolated Learning of Representations](https://arxiv.org/abs/1905.11786)
 
 &ast;equal contribution
 
@@ -79,8 +79,8 @@ What we found exciting is that despite each module being trained greedily, it im
 Please cite our paper if you use this code in your own work:
 
 ```
-@article{lowe2019greedy,
-  title={Greedy InfoMax for Biologically Plausible Self-Supervised Representation Learning},
+@article{lowe2019putting,
+  title={Putting An End to End-to-End: Gradient-Isolated Learning of Representations},
   author={L{\"o}we, Sindy and O'Connor, Peter and Veeling, Bastiaan S},
   journal={arXiv preprint arXiv:1905.11786},
   year={2019}
