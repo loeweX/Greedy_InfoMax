@@ -1,6 +1,6 @@
 # Greedy InfoMax
 
-We're going Dutch and explore greedy self-supervised training using the InfoMax principle. Surprisingly, it's competitive with end-to-end supervised training on certain perceptual tasks!
+We can train a neural network **without end-to-end backpropagation** and achieve competitive performance.
 
 This repo provides the code for the audio experiments in our paper:
 
