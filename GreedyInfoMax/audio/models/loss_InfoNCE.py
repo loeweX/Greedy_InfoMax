@@ -6,9 +6,9 @@ from GreedyInfoMax.audio.models import loss
 from GreedyInfoMax.utils import utils
 
 
-class CPC_Loss(loss.Loss):
+class InfoNCE_Loss(loss.Loss):
     def __init__(self, opt, hidden_dim, enc_hidden, calc_accuracy):
-        super(CPC_Loss, self).__init__()
+        super(InfoNCE_Loss, self).__init__()
 
         self.opt = opt
         self.hidden_dim = hidden_dim
@@ -40,7 +40,7 @@ class CPC_Loss(loss.Loss):
                 z = z[:, seq_begin : seq_begin + self.subsample_win, :]
 
         Wc = self.predictor(c)
-        total_loss, accuracies = self.calc_CPC_loss(Wc, z, full_z)
+        total_loss, accuracies = self.calc_InfoNCE_loss(Wc, z, full_z)
         return total_loss, accuracies
 
     def broadcast_batch_length(self, input_tensor):
@@ -181,7 +181,7 @@ class CPC_Loss(loss.Loss):
 
         return f_k
 
-    def calc_CPC_loss(self, Wc, z, full_z=None):
+    def calc_InfoNCE_loss(self, Wc, z, full_z=None):
         """
         calculate the loss based on the model outputs Wc (the prediction) and z (the encoded future)
         :param Wc: output of the predictor, where W are the weights for the different timesteps and

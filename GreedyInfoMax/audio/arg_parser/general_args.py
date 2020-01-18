@@ -31,13 +31,6 @@ def parse_general_args(parser):
         help="Boolean to decide whether to split train dataset into train/val and plot validation loss",
     )
     parser.add_option(
-        "--SVM_training_samples",
-        type="int",
-        default=0,
-        help="If value is > 0, train an SVM on the representation of the model after every epoch of training "
-             "and test speaker classification performance on testset (20 is a reasonable value here)",
-    )
-    parser.add_option(
         "--save_dir",
         type="string",
         default="",

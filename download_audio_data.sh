@@ -1,4 +1,5 @@
-echo "Downloading datasets:"
+#!/usr/bin/env bash
+echo "Downloading audio datasets:"
 mkdir datasets
 cd datasets || exit
 wget http://www.openslr.org/resources/12/train-clean-100.tar.gz

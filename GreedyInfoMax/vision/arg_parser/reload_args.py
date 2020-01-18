@@ -3,7 +3,7 @@ from optparse import OptionGroup
 def parser_reload_args(parser):
     group = OptionGroup(parser, "Reloading pretrained model options")
 
-    # Options to load pretrained audio_models
+    ### Options to load pretrained models
     group.add_option(
         "--start_epoch",
         type="int",
@@ -11,7 +11,7 @@ def parser_reload_args(parser):
         help="Epoch to start GIM training from: "
         "v=0 - start training from scratch, "
         "v>0 - load pre-trained model that was trained for v epochs and continue training "
-        "(path to model is specified in opt.model_path)",
+        "(path to pre-trained model needs to be specified in opt.model_path)",
     )
     group.add_option(
         "--model_path",
@@ -22,18 +22,18 @@ def parser_reload_args(parser):
     group.add_option(
         "--model_num",
         type="string",
-        default="",
-        help="Number of the saved model to be used for testing pre-trained models"
+        default="100",
+        help="Number of the saved model to be used for training the linear classifier"
         "(loaded using model_path + model_X.ckpt, where X is the model_num passed here)",
     )
     group.add_option(
         "--model_type",
         type="int",
         default=0,
-        help="Which type of model to use for additional trainings of linear classifiers:"
-        "0 - pretrained CPC model"
+        help="Which type of model to use for training of linear classifier on downstream task:"
+        "0 - pretrained GreedyInfoMax/CPC model"
         "1 - randomly initialized model"
-        "2 - fully supervised training model",
+        "2 - fully supervised model",
     )
     parser.add_option_group(group)
     return parser

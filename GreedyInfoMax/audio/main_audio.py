@@ -8,7 +8,7 @@ from GreedyInfoMax.audio.arg_parser import arg_parser
 from GreedyInfoMax.audio.models import load_audio_model
 from GreedyInfoMax.audio.data import get_dataloader
 from GreedyInfoMax.audio.validation import val_by_latent_speakers
-from GreedyInfoMax.audio.validation import val_by_CPC, val_by_SVM
+from GreedyInfoMax.audio.validation import val_by_InfoNCELoss
 
 
 def train(opt, model):
@@ -24,13 +24,6 @@ def train(opt, model):
     for epoch in range(opt.start_epoch, opt.num_epochs + opt.start_epoch):
 
         loss_epoch = [0 for i in range(opt.model_splits)]
-
-        # validate training progress by training and testing an SVM on a subset of the speakers
-        if opt.SVM_training_samples > 0:
-            speaker_accuracy = val_by_SVM.val_by_SVM_speaker_classification(
-                opt, model, train_dataset, test_dataset
-            )
-            logs.append_SVM_acc(speaker_accuracy)
 
         for step, (audio, filename, _, start_idx) in enumerate(train_loader):
 
@@ -77,7 +70,7 @@ def train(opt, model):
 
         # validate by testing the CPC performance on the validation set
         if opt.validate:
-            validation_loss = val_by_CPC.val_by_CPC(opt, model, test_loader)
+            validation_loss = val_by_InfoNCELoss.val_by_InfoNCELoss(opt, model, test_loader)
             logs.append_val_loss(validation_loss)
 
         logs.create_log(model, epoch=epoch, optimizer=optimizer)

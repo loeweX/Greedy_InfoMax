@@ -1,7 +1,7 @@
 from optparse import OptionGroup
 
-def parse_CPC_args(parser):
-    group = OptionGroup(parser, "CPC training options")
+def parse_GIM_args(parser):
+    group = OptionGroup(parser, "GIM training options")
     group.add_option(
         "--learning_rate", type="float", default=1.5e-4, help="Learning rate"
     )

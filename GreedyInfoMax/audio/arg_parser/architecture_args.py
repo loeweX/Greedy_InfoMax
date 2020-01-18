@@ -8,7 +8,7 @@ def parse_architecture_args(parser):
         type="int",
         default=0,
         help="Choose between different loss functions to be used for training:"
-        "0 - CPC loss"
+        "0 - InfoNCE loss"
         "1 - supervised training using the phone labels"
         "2 - supervised training using the speaker labels",
     )

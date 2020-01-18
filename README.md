@@ -35,14 +35,47 @@ What we found exciting is that despite each module being trained greedily, it im
     bash setup_dependencies.sh
     ```
 
+Additionally, for the audio experiments:
 - Install [torchaudio](https://github.com/pytorch/audio) in the `infomax` environment
-- Download datasets 
+- Download audio datasets 
     ```bash 
-    bash download_data.sh
+    bash download_audio_data.sh
     ```
 
 ### Usage
 
+#### Vision Experiments
+- To replicate the vision results from our paper, run
+
+    ``` bash
+    source activate infomax
+    bash vision_traineval.sh
+    ```
+    This will train the Greedy InfoMax model as well as evaluate it by training a linear image classifiers on top of it
+    
+    
+
+- View all possible command-line options by running
+
+    ``` bash
+    python -m GreedyInfoMax.vision.main_vision --help
+    ```    
+    
+    Some of the more important options are:
+    
+    * in order to train the baseline CPC model with end-to-end backpropagation instead of the Greedy InfoMax model set: 
+    ```bash
+    --model_splits 1
+    ```
+
+    * If you want to save GPU memory, you can train layers sequentially, one at a time, by setting the module to be trained (0-2), e.g.
+    
+    ```bash 
+    --train_module 0
+    ```
+
+
+#### Audio Experiments
 - To replicate the audio results from our paper, run
 
     ``` bash

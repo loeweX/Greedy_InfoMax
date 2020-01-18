@@ -1,7 +1,7 @@
 import torch
 import time
 
-def val_by_CPC(opt, model, test_loader):
+def val_by_InfoNCELoss(opt, model, test_loader):
     total_step = len(test_loader)
 
     loss_epoch = [0 for i in range(opt.model_splits)]

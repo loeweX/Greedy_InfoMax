@@ -152,3 +152,28 @@ class FullModel(nn.Module):
                     model_input = z.permute(0, 2, 1).detach()
 
         return loss
+
+    def forward_through_n_layers(self, x, n):
+        if self.opt.model_splits == 1:
+            if n > 4:
+                model_input = x
+                for idx, layer in enumerate(self.fullmodel):
+                    c, z = layer.get_latents(model_input)
+                    model_input = z.permute(0, 2, 1).detach()
+                x = c
+            else:
+                x = self.fullmodel[0].encoder.forward_through_n_layers(
+                    x, n+1
+                )
+                x = x.permute(0, 2, 1)
+        elif self.opt.model_splits == 6 or self.opt.model_splits == 5:
+            model_input = x
+            for idx, layer in enumerate(self.fullmodel[: n + 1]):
+                c, z = layer.get_latents(model_input)
+                model_input = z.permute(0, 2, 1).detach()
+            if n < 5:
+                x = z
+            else:
+                x = c
+
+        return x
