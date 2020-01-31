@@ -20,7 +20,7 @@ We simply divide existing architectures into gradient-isolated modules and optim
 What we found exciting is that despite each module being trained greedily, it improves upon the representation of the previous module. This enables you to keep stacking modules until downstream performance saturates.
 
 <p align="center"> 
-    <img src="./media/latent_classification.png" width="700">
+    <img src="./media/LatentClassification.png" width="700">
 </p>
 
 
