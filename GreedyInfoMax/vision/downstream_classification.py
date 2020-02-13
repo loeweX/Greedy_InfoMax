@@ -79,7 +79,8 @@ def train_logistic_regression(opt, context_model, predict_model, train_loader):
         logs.create_log(
             context_model,
             epoch=epoch,
-            predict_model=predict_model,
+            # correction with wrong parameter of predict_model
+            classification_model=predict_model,
             accuracy=epoch_acc1 / total_step,
             acc5=epoch_acc5 / total_step,
         )
