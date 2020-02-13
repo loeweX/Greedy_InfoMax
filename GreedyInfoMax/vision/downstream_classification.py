@@ -10,9 +10,9 @@ from GreedyInfoMax.vision.models import load_vision_model
 from GreedyInfoMax.utils import logger, utils
 
 
-def train_logistic_regression(opt, context_model, predict_model, train_loader):
+def train_logistic_regression(opt, context_model, classification_model, train_loader):
     total_step = len(train_loader)
-    predict_model.train()
+    classification_model.train()
 
     starttime = time.time()
 
@@ -23,7 +23,7 @@ def train_logistic_regression(opt, context_model, predict_model, train_loader):
         loss_epoch = 0
         for step, (img, target) in enumerate(train_loader):
 
-            predict_model.zero_grad()
+            classification_model.zero_grad()
 
             model_input = img.to(opt.device)
 
@@ -34,7 +34,7 @@ def train_logistic_regression(opt, context_model, predict_model, train_loader):
                     _, _, z, _ = context_model(model_input, target)
                 z = z.detach() #double security that no gradients go to representation learning part of model
 
-            prediction = predict_model(z)
+            prediction = classification_model(z)
 
             target = target.to(opt.device)
             loss = criterion(prediction, target)
@@ -70,7 +70,7 @@ def train_logistic_regression(opt, context_model, predict_model, train_loader):
         if opt.validate:
             # validate the model - in this case, test_loader loads validation data
             val_acc1, _ , val_loss = test_logistic_regression(
-                opt, context_model, predict_model, test_loader
+                opt, context_model, classification_model, test_loader
             )
             logs.append_val_loss([val_loss])
 
@@ -79,17 +79,16 @@ def train_logistic_regression(opt, context_model, predict_model, train_loader):
         logs.create_log(
             context_model,
             epoch=epoch,
-            # correction with wrong parameter of predict_model
-            classification_model=predict_model,
+            classification_model=classification_model,
             accuracy=epoch_acc1 / total_step,
             acc5=epoch_acc5 / total_step,
         )
 
 
-def test_logistic_regression(opt, context_model, predict_model, test_loader):
+def test_logistic_regression(opt, context_model, classification_model, test_loader):
     total_step = len(test_loader)
     context_model.eval()
-    predict_model.eval()
+    classification_model.eval()
 
     starttime = time.time()
 
@@ -106,7 +105,7 @@ def test_logistic_regression(opt, context_model, predict_model, test_loader):
 
         z = z.detach()
 
-        prediction = predict_model(z)
+        prediction = classification_model(z)
 
         target = target.to(opt.device)
         loss = criterion(prediction, target)
