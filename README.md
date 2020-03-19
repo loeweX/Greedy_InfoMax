@@ -105,6 +105,8 @@ Additionally, for the audio experiments:
     --train_layer 0
     ```
     
+## Want to learn more about Greedy InfoMax?
+Check out my [presentation at NeurIPS 2019](https://slideslive.com/38923276). My slides for this talk are available [here](media/Presentation_GreedyInfoMax_NeurIPS.pdf).
 
 
 ## Cite
