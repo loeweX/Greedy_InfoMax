@@ -8,7 +8,7 @@ def parser_reload_args(parser):
         "--start_epoch",
         type="int",
         default=0,
-        help="Epoch to start CPC training from: "
+        help="Epoch to start GIM training from: "
         "v=0 - start training from scratch, "
         "v>0 - load pre-trained model that was trained for v epochs and continue training "
         "(path to model is specified in opt.model_path)",
@@ -16,7 +16,7 @@ def parser_reload_args(parser):
     group.add_option(
         "--model_path",
         type="string",
-        default="",
+        default=".",
         help="Directory of the saved model (path within --data_input_dir)",
     )
     group.add_option(

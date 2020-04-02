@@ -4,7 +4,7 @@ import torch.nn as nn
 from GreedyInfoMax.audio.models import (
     autoregressor,
     encoder,
-    loss_CPC,
+    loss_InfoNCE,
     loss_supervised_phones,
     loss_supervised_speaker,
 )
@@ -57,7 +57,7 @@ class IndependentModule(nn.Module):
 
         # different loss functions
         if self.opt.loss == 0:  # InfoNCE loss
-            self.loss = loss_CPC.CPC_Loss(
+            self.loss = loss_InfoNCE.InfoNCE_Loss(
                 opt, self.hidden_dim, self.enc_hidden, calc_accuracy
             )
 

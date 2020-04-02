@@ -7,7 +7,7 @@ import numpy as np
 from GreedyInfoMax.audio.arg_parser import (
     reload_args,
     architecture_args,
-    CPC_args,
+    GIM_args,
     general_args,
 )
 
@@ -17,7 +17,7 @@ def parse_args():
     parser = OptionParser()
 
     parser = general_args.parse_general_args(parser)
-    parser = CPC_args.parse_CPC_args(parser)
+    parser = GIM_args.parse_GIM_args(parser)
     parser = architecture_args.parse_architecture_args(parser)
     parser = reload_args.parser_reload_args(parser)
 
@@ -27,6 +27,8 @@ def parse_args():
 
     # Device configuration
     opt.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+    opt.experiment = "audio"
 
     return opt
 
