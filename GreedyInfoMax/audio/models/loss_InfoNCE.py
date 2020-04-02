@@ -126,15 +126,22 @@ class InfoNCE_Loss(loss.Loss):
                 can cause positive samples to be selected as negative samples as well 
                 done once for all time-steps, much faster                
             """
-            z_neg = torch.stack(
-                [
-                    torch.index_select(
-                        z, 1, torch.randperm(z.size(1), device=cur_device)
-                    )
-                    for i in range(self.neg_samples)
-                ],
-                3,
-            )
+
+            z_neg = []
+            channel = z.size(-1)
+            batch_dim = z.size(0)
+            seq_len = z.size(1)
+            for _ in range(self.neg_samples):
+                rand_perm_index = torch.randperm(batch_dim * seq_len, device=cur_device).remainder_(seq_len)
+                rand_perm_index.reshape(batch_dim, seq_len)
+                batch_index_offset = torch.arange(0, batch_dim, device=cur_device) * seq_len
+                rand_perm_index += batch_index_offset[:, None]
+
+                z_neg.append(z.reshape(-1, channel)[rand_perm_index.view(-1)].reshape(batch_dim, seq_len, channel))
+
+            z_neg = torch.stack(z_neg, 3)
+
+
             if self.opt.subsample:
                 if z_neg.size(1) > self.subsample_win:
                     seq_begin = np.random.randint(0, z_neg.size(1) - self.subsample_win)
