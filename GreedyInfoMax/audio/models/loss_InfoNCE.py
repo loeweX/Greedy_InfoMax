@@ -133,7 +133,7 @@ class InfoNCE_Loss(loss.Loss):
             seq_len = z.size(1)
             for _ in range(self.neg_samples):
                 rand_perm_index = torch.randperm(batch_dim * seq_len, device=cur_device).remainder_(seq_len)
-                rand_perm_index.reshape(batch_dim, seq_len)
+                rand_perm_index = rand_perm_index.reshape(batch_dim, seq_len)
                 batch_index_offset = torch.arange(0, batch_dim, device=cur_device) * seq_len
                 rand_perm_index += batch_index_offset[:, None]
 
