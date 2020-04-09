@@ -2,7 +2,7 @@
 
 We can train a neural network **without end-to-end backpropagation** and achieve competitive performance.
 
-This repo provides the code for the audio experiments in our paper:
+This repo provides the code for the experiments in our paper:
 
 Sindy Löwe*, Peter O'Connor, Bastiaan S. Veeling* - [Putting An End to End-to-End: Gradient-Isolated Learning of Representations](https://arxiv.org/abs/1905.11786)
 
@@ -23,6 +23,7 @@ What we found exciting is that despite each module being trained greedily, it im
     <img src="./media/LatentClassification.png" width="700">
 </p>
 
+Make sure to check out our [blog post](https://loewex.github.io/GreedyInfoMax.html) for an intuitive explanation of the whole process!
 
 ## How to run the code
 
