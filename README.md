@@ -23,7 +23,6 @@ What we found exciting is that despite each module being trained greedily, it im
     <img src="./media/LatentClassification.png" width="700">
 </p>
 
-Make sure to check out our [blog post](https://loewex.github.io/GreedyInfoMax.html) for an intuitive explanation of the whole process!
 
 ## How to run the code
 
@@ -107,7 +106,9 @@ Additionally, for the audio experiments:
     ```
     
 ## Want to learn more about Greedy InfoMax?
-Check out my [presentation at NeurIPS 2019](https://slideslive.com/38923276). My slides for this talk are available [here](media/Presentation_GreedyInfoMax_NeurIPS.pdf).
+Check out my [blog post](https://loewex.github.io/GreedyInfoMax.html) for an intuitive explanation of Greedy InfoMax. 
+
+Additionally, you can watch my [presentation at NeurIPS 2019](https://slideslive.com/38923276). My slides for this talk are available [here](media/Presentation_GreedyInfoMax_NeurIPS.pdf).
 
 
 ## Cite
