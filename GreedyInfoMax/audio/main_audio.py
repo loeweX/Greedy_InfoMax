@@ -1,6 +1,7 @@
 import torch
 import time
 import numpy as np
+import random
 
 #### own modules
 from GreedyInfoMax.utils import logger
@@ -85,6 +86,7 @@ if __name__ == "__main__":
     torch.manual_seed(opt.seed)
     torch.cuda.manual_seed(opt.seed)
     np.random.seed(opt.seed)
+    random.seed(opt.seed)
 
     # load model
     model, optimizer = load_audio_model.load_model_and_optimizer(opt)

@@ -5,7 +5,7 @@ import torchaudio
 from collections import defaultdict
 import torch
 import numpy as np
-
+import random
 
 def default_loader(path):
     return torchaudio.load(path, normalization=False)
@@ -60,7 +60,7 @@ class LibriDataset(Dataset):
         ## discard last part that is not a full 10ms
         max_length = audio.size(1) // 160 * 160
 
-        start_idx = np.random.choice(
+        start_idx = random.choice(
             np.arange(160, max_length - self.audio_length - 0, 160)
         )
 
