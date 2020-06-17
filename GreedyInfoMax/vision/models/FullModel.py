@@ -24,8 +24,8 @@ class FullVisionModel(torch.nn.Module):
 
     def _create_full_model(self, opt):
 
-        block_dims = [3, 4, 6, 6, 6, 6, 6]
-        num_channels = [64, 128, 256, 256, 256, 256, 256]
+        block_dims = [3, 4, 6]
+        num_channels = [64, 128, 256]
 
         full_model = nn.ModuleList([])
         encoder = nn.ModuleList([])
