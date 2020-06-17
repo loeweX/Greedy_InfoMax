@@ -57,11 +57,7 @@ class FullVisionModel(torch.nn.Module):
                 )
             )
         elif opt.model_splits == 3:
-            idx = 0
             for idx, _ in enumerate(block_dims):
-                if idx == opt.model_splits:
-                    break
-
                 encoder.append(
                     Resnet_Encoder.ResNet_Encoder(
                         opt,
