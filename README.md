@@ -116,10 +116,11 @@ Additionally, you can watch my [presentation at NeurIPS 2019](https://slideslive
 Please cite our paper if you use this code in your own work:
 
 ```
-@article{lowe2019putting,
-  title={Putting An End to End-to-End: Gradient-Isolated Learning of Representations},
-  author={L{\"o}we, Sindy and O'Connor, Peter and Veeling, Bastiaan S},
-  journal={arXiv preprint arXiv:1905.11786},
+@inproceedings{lowe2019putting,
+  title={Putting an End to End-to-End: Gradient-Isolated Learning of Representations},
+  author={L{\"o}we, Sindy and O'Connor, Peter and Veeling, Bastiaan},
+  booktitle={Advances in Neural Information Processing Systems},
+  pages={3039--3051},
   year={2019}
 }
 ```
