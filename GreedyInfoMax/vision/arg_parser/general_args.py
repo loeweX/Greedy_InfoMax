@@ -57,7 +57,7 @@ def parse_general_args(parser):
         "--grayscale",
         action="store_true",
         default=False,
-        help="Boolean to decide whether to convert images to grayscale (default: true)",
+        help="Boolean to decide whether to convert images to grayscale (default: false)",
     )
     parser.add_option(
         "--weight_init",
