@@ -6,7 +6,7 @@ class ClassificationModel(torch.nn.Module):
     def __init__(self, in_channels=256, num_classes=200, hidden_nodes=0):
         super().__init__()
         self.in_channels = in_channels
-        self.avg_pool = nn.AvgPool2d((7, 7), stride=0, padding=0)
+        self.avg_pool = nn.AvgPool2d((7, 7), padding=0)
         self.model = nn.Sequential()
 
         if hidden_nodes > 0:
