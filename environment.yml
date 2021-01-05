@@ -54,7 +54,7 @@ dependencies:
   - pyqt=5.6.0
   - python=3.6.8
   - python-dateutil=2.7.5
-  - pytorch=1.0.0
+  - pytorch=1.7.1
   - pytz=2018.9
   - qt=5.6.3
   - readline=7.0
