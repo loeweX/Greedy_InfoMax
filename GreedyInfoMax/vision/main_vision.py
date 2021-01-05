@@ -77,16 +77,21 @@ def train(opt, model):
                 loss = loss[cur_train_module].unsqueeze(0)
 
             # loop through the losses of the modules and do gradient descent
+            model.zero_grad()
+
             for idx, cur_losses in enumerate(loss):
                 if len(loss) == 1 and opt.model_splits != 1:
                     idx = cur_train_module
-
-                model.zero_grad()
-
+                    
                 if idx == len(loss) - 1:
                     cur_losses.backward()
                 else:
                     cur_losses.backward(retain_graph=True)
+                    
+            for idx, cur_losses in enumerate(loss):
+                if len(loss) == 1 and opt.model_splits != 1:
+                    idx = cur_train_module
+                    
                 optimizer[idx].step()
 
                 print_loss = cur_losses.item()

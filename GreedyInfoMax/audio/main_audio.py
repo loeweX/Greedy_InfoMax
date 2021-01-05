@@ -52,13 +52,15 @@ def train(opt, model):
             loss = model(model_input, filename, start_idx, n=opt.train_layer)
             loss = torch.mean(loss, 0)  # average over the losses from different GPUs
 
-            for idx, cur_losses in enumerate(loss):
-                model.zero_grad()
+            model.zero_grad()
 
+            for idx, cur_losses in enumerate(loss):
                 if idx == len(loss) - 1:
                     cur_losses.backward()
                 else:
                     cur_losses.backward(retain_graph=True)
+		    
+            for idx, cur_losses in enumerate(loss):
                 optimizer[idx].step()
 
                 print_loss = cur_losses.item()
