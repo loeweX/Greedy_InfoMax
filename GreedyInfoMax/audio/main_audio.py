@@ -24,7 +24,7 @@ def train(opt, model):
 
     for epoch in range(opt.start_epoch, opt.num_epochs + opt.start_epoch):
 
-        loss_epoch = [0 for i in range(opt.model_splits)]
+        loss_epoch = [0 for _ in range(opt.model_splits)]
 
         for step, (audio, filename, _, start_idx) in enumerate(train_loader):
 
@@ -53,21 +53,16 @@ def train(opt, model):
             loss = torch.mean(loss, 0)  # average over the losses from different GPUs
 
             model.zero_grad()
+            overall_loss = sum(loss)
+            overall_loss.backward()
+            optimizer.step()
 
             for idx, cur_losses in enumerate(loss):
-                if idx == len(loss) - 1:
-                    cur_losses.backward()
-                else:
-                    cur_losses.backward(retain_graph=True)
-		    
-            for idx, cur_losses in enumerate(loss):
-                optimizer[idx].step()
-
                 print_loss = cur_losses.item()
+                loss_epoch[idx] += print_loss
+
                 if step % print_idx == 0:
                     print("\t \t Loss: \t \t {:.4f}".format(print_loss))
-
-                loss_epoch[idx] += print_loss
 
         logs.append_train_loss([x / total_step for x in loss_epoch])
 
