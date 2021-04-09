@@ -20,14 +20,17 @@ class Logger:
             self.loss_last_training = np.load(
                 os.path.join(opt.model_path, "train_loss.npy")
             ).tolist()
-            self.train_loss[:len(self.loss_last_training)] = copy.deepcopy(self.loss_last_training)
-
+            self.train_loss[: len(self.loss_last_training)] = copy.deepcopy(
+                self.loss_last_training
+            )
 
             if opt.validate:
                 self.val_loss_last_training = np.load(
                     os.path.join(opt.model_path, "val_loss.npy")
                 ).tolist()
-                self.val_loss[:len(self.val_loss_last_training)] = copy.deepcopy(self.val_loss_last_training)
+                self.val_loss[: len(self.val_loss_last_training)] = copy.deepcopy(
+                    self.val_loss_last_training
+                )
             else:
                 self.val_loss = None
         else:
@@ -50,7 +53,7 @@ class Logger:
         final_test=False,
         final_loss=None,
         acc5=None,
-        classification_model=None
+        classification_model=None,
     ):
 
         print("Saving model and log-file to " + self.opt.log_path)
@@ -60,7 +63,9 @@ class Logger:
             for idx, layer in enumerate(model.module.encoder):
                 torch.save(
                     layer.state_dict(),
-                    os.path.join(self.opt.log_path, "model_{}_{}.ckpt".format(idx, epoch)),
+                    os.path.join(
+                        self.opt.log_path, "model_{}_{}.ckpt".format(idx, epoch)
+                    ),
                 )
         else:
             torch.save(
@@ -76,7 +81,9 @@ class Logger:
                         os.remove(
                             os.path.join(
                                 self.opt.log_path,
-                                "model_{}_{}.ckpt".format(idx, epoch - self.num_models_to_keep),
+                                "model_{}_{}.ckpt".format(
+                                    idx, epoch - self.num_models_to_keep
+                                ),
                             )
                         )
                 else:
@@ -89,12 +96,13 @@ class Logger:
             except:
                 print("not enough models there yet, nothing to delete")
 
-
         if classification_model is not None:
             # Save the predict model checkpoint
             torch.save(
                 classification_model.state_dict(),
-                os.path.join(self.opt.log_path, "classification_model_{}.ckpt".format(epoch)),
+                os.path.join(
+                    self.opt.log_path, "classification_model_{}.ckpt".format(epoch)
+                ),
             )
 
             ### remove old model files to keep dir uncluttered
@@ -102,32 +110,29 @@ class Logger:
                 os.remove(
                     os.path.join(
                         self.opt.log_path,
-                        "classification_model_{}.ckpt".format(epoch - self.num_models_to_keep),
+                        "classification_model_{}.ckpt".format(
+                            epoch - self.num_models_to_keep
+                        ),
                     )
                 )
             except:
                 print("not enough models there yet, nothing to delete")
 
         if optimizer is not None:
-            for idx, optims in enumerate(optimizer):
-                torch.save(
-                    optims.state_dict(),
-                    os.path.join(
-                        self.opt.log_path, "optim_{}_{}.ckpt".format(idx, epoch)
-                    ),
-                )
+            torch.save(
+                optimizer.state_dict(),
+                os.path.join(self.opt.log_path, "optim_{}.ckpt".format(epoch)),
+            )
 
-                try:
-                    os.remove(
-                        os.path.join(
-                            self.opt.log_path,
-                            "optim_{}_{}.ckpt".format(
-                                idx, epoch - self.num_models_to_keep
-                            ),
-                        )
+            try:
+                os.remove(
+                    os.path.join(
+                        self.opt.log_path,
+                        "optim_{}.ckpt".format(epoch - self.num_models_to_keep),
                     )
-                except:
-                    print("not enough models there yet, nothing to delete")
+                )
+            except:
+                print("not enough models there yet, nothing to delete")
 
         # Save hyper-parameters
         with open(os.path.join(self.opt.log_path, "log.txt"), "w+") as cur_file:
@@ -160,13 +165,15 @@ class Logger:
             np.save(os.path.join(self.opt.log_path, "final_accuracy"), accuracy)
             np.save(os.path.join(self.opt.log_path, "final_loss"), final_loss)
 
-
     def draw_loss_curve(self):
         for idx, loss in enumerate(self.train_loss):
             lst_iter = np.arange(len(loss))
             plt.plot(lst_iter, np.array(loss), "-b", label="train loss")
 
-            if self.loss_last_training is not None and len(self.loss_last_training) > idx:
+            if (
+                self.loss_last_training is not None
+                and len(self.loss_last_training) > idx
+            ):
                 lst_iter = np.arange(len(self.loss_last_training[idx]))
                 plt.plot(lst_iter, self.loss_last_training[idx], "-g")
 

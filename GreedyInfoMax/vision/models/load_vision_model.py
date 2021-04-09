@@ -10,17 +10,10 @@ def load_model_and_optimizer(opt, num_GPU=None, reload_model=False, calc_loss=Tr
         opt, calc_loss
     )
 
-    optimizer = []
-    if opt.model_splits == 1:
-        optimizer.append(
-            torch.optim.Adam(model.parameters(), lr=opt.learning_rate)
-        )
-    elif opt.model_splits >= 3:
-        # use separate optimizer for each module, so gradients don't get mixed up
-        for idx, layer in enumerate(model.encoder):
-            optimizer.append(torch.optim.Adam(layer.parameters(), lr=opt.learning_rate))
+    if opt.train_module != opt.model_splits and opt.model_splits > 1:
+        optimizer = torch.optim.Adam(model.encoder[opt.train_module].parameters(), lr=opt.learning_rate)
     else:
-        raise NotImplementedError
+        optimizer = torch.optim.Adam(model.parameters(), lr=opt.learning_rate)
 
     model, num_GPU = model_utils.distribute_over_GPUs(opt, model, num_GPU=num_GPU)
 

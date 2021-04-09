@@ -101,18 +101,15 @@ def reload_weights(opt, model, optimizer, reload_model):
                     )
                 )
 
-        for i, optim in enumerate(optimizer):
-            if opt.model_splits > 3 and i > 2:
-                break
-            optim.load_state_dict(
-                torch.load(
-                    os.path.join(
-                        opt.model_path,
-                        "optim_{}_{}.ckpt".format(str(i), opt.start_epoch),
-                    ),
-                    map_location=opt.device.type,
-                )
+        optimizer.load_state_dict(
+            torch.load(
+                os.path.join(
+                    opt.model_path,
+                    "optim_{}.ckpt".format(opt.start_epoch),
+                ),
+                map_location=opt.device.type,
             )
+        )
     else:
         print("Randomly initialized model")
 
