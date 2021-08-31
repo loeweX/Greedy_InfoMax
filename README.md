@@ -73,6 +73,9 @@ Additionally, for the audio experiments:
     ```bash 
     --train_module 0
     ```
+    
+
+- Download a GIM model pretrained on STL-10 [here](https://drive.google.com/file/d/1yxwVOpxlrdAFHrNtMYy4QkszsUQFrI6X/view?usp=sharing)
 
 
 #### Audio Experiments
