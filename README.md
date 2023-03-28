@@ -75,9 +75,6 @@ Additionally, for the audio experiments:
     ```
     
 
-- Download a GIM model pretrained on STL-10 [here](https://drive.google.com/file/d/1yxwVOpxlrdAFHrNtMYy4QkszsUQFrI6X/view?usp=sharing)
-
-
 #### Audio Experiments
 - To replicate the audio results from our paper, run
 
